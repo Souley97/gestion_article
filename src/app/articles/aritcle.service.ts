@@ -25,6 +25,15 @@ export class ArticleService {
   }
 
   
+  getArticle(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
+
  
+
+  updateArticle(id: number, article: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${id}`, article);
+  }
+
   // Autres méthodes CRUD (getArticle, createArticle, updateArticle, deleteArticle) peuvent être ajoutées ici
 }

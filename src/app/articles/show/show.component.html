@@ -1,1 +1,5 @@
-<p>show works!</p>
+<h2>Détails de l'Article</h2>
+<h3>{{ article?.title }}</h3>
+<p>{{ article?.body }}</p>
+<button [routerLink]="['/edit', article?.id]">Modifier</button>
+<button [routerLink]="['/articles']">Retour à la liste</button>
