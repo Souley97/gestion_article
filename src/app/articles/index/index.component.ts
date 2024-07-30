@@ -32,4 +32,18 @@ export class IndexComponent {
       }
     );
   }
+
+  deleteArticle(id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet article ?')) {
+      this.articleService.deleteArticle(id).subscribe(
+        () => {
+          this.articles = this.articles.filter(article => article.id !== id);
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression de l\'article:', error);
+        }
+      );
+    }
+  }
+  
 }
