@@ -1,7 +1,7 @@
 // index.component.ts
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ArticleService } from '../aritcle.service';
@@ -16,7 +16,14 @@ import { ArticleService } from '../aritcle.service';
 export class IndexComponent {
   articles: any[] = [];
 
-  constructor(private articleService: ArticleService) {}
+  constructor(
+    private articleService: ArticleService,
+    private router: Router,  // Assure la disponibilité des RouterLink dans toute l'application
+    private fb: FormBuilder
+  
+  ) {
+    
+  }
 
   ngOnInit(): void {
     this.fetchArticles();
@@ -45,5 +52,7 @@ export class IndexComponent {
       );
     }
   }
+
+  
   
 }

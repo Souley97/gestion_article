@@ -1,1 +1,20 @@
-<p>create works!</p>
+<form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="title">Title</label>
+      <input id="title" formControlName="title" />
+      <div *ngIf="articleForm.get('title')?.invalid && articleForm.get('title')?.touched">
+        Title is required
+      </div>
+    </div>
+  
+    <div>
+      <label for="body">Body</label>
+      <textarea id="body" formControlName="body"></textarea>
+      <div *ngIf="articleForm.get('body')?.invalid && articleForm.get('body')?.touched">
+        Body is required
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="articleForm.invalid">Submit</button>
+  </form>
+  
