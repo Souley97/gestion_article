@@ -32,7 +32,7 @@ export class IndexComponent {
   fetchArticles(): void {
     this.articleService.getArticles().subscribe(
       (response) => {
-        this.articles = response;
+        this.articles = response.filter(article => article.userId === 1);
       },
       (error) => {
         console.error('Erreur lors de la récupération des articles:', error);
