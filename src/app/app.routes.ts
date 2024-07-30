@@ -4,10 +4,12 @@ import { ShowComponent } from './articles/show/show.component';
 import { CreateComponent } from './articles/create/create.component';
 
 export const routes: Routes = [
-    { path: 'articles', component: IndexComponent },
-    { path: 'article/:id', component: ShowComponent },
+    
+    { "path": '', component: IndexComponent },
+    { "path": 'articles', component: IndexComponent },
+    { "path": 'article/:id', component: ShowComponent },
     // { path: 'edit/:id', component: EditFormComponent },
-    { path: 'create', component: CreateComponent },
-    { path: '', redirectTo: '/articles', pathMatch: 'full' }
+    { "path": 'create', component: CreateComponent },
+    { "path": '', redirectTo: '/articles', pathMatch: 'full' }
 
 ];

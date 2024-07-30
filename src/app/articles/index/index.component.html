@@ -1,1 +1,10 @@
-<p>index works!</p>
+<div *ngIf="articles.length > 0; else noArticles">
+    <div *ngFor="let article of articles">
+      <h2>{{ article.title }}</h2>
+      <p>{{ article.body }}</p>
+    </div>
+  </div>
+  <ng-template #noArticles>
+    <p>Aucun article disponible.</p>
+  </ng-template>
+  
