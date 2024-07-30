@@ -14,6 +14,7 @@ import { ArticleService } from '../aritcle.service';
 })
 export class CreateComponent {
   articleForm: FormGroup;
+  articles: any;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +30,8 @@ export class CreateComponent {
   onSubmit(): void {
     if (this.articleForm.valid) {
       this.articleService.createArticle(this.articleForm.value).subscribe(
-        () => {
+        (newArticle) => {
+          this.articles.unshift(newArticle);  // Ajouter l'article nouvellement créé en haut de la liste
           this.router.navigate(['/']); // Rediriger vers la liste des articles après la création
         },
         (error) => {
@@ -38,4 +40,5 @@ export class CreateComponent {
       );
     }
   }
+  
 }
