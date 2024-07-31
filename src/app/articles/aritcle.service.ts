@@ -15,5 +15,25 @@ export class ArticleService {
     return this.http.get<any[]>(this.baseUrl);
   }
 
+
+  deleteArticle(id:number) : Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/${id}`);
+  }
+
+  createArticle(article: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl, article);
+  }
+
+  
+  getArticle(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
+
+ 
+
+  updateArticle(id: number, article: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${id}`, article);
+  }
+
   // Autres méthodes CRUD (getArticle, createArticle, updateArticle, deleteArticle) peuvent être ajoutées ici
 }

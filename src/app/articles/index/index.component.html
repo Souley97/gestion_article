@@ -1,10 +1,85 @@
-<div *ngIf="articles.length > 0; else noArticles">
-    <div *ngFor="let article of articles">
-      <h2>{{ article.title }}</h2>
-      <p>{{ article.body }}</p>
+<div class="container mx-auto p-4">
+    <div class="flex justify-between my-7">
+
+        <h2 class="text-2xl font-bold mb-4">Liste des Articles</h2>
+        <button (click)="togglePopup()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+          Ajouter un Article
+        </button>
+
+    </div>
+  
+    <div *ngIf="articles.length > 0; else noArticles" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div *ngFor="let article of articles" class="bg-white p-4 rounded-lg shadow-lg flex flex-col">
+        <div class="flex-grow">
+          <h3 class="text-xl font-semibold mb-2">{{ article.title }}</h3>
+          <p class="text-gray-700 mb-4">{{ article.body }}</p>
+        </div>
+        <div class="flex justify-between mt-auto">
+          <button [routerLink]="['/article', article.id]" class="text-blue-500 px-4 py-2 rounded hover:text-blue-600">
+            <i class="fas fa-info-circle"></i>
+          </button>
+          <button (click)="loadArticleForEditing(article.id); togglePopup()" class="text-yellow-500 px-4 py-2 rounded hover:text-yellow-600">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button (click)="deleteArticle(article.id)" class="text-red-500 px-4 py-2 rounded hover:text-red-600">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noArticles>
+      <div class="container mx-auto p-4">
+        <p class="text-center text-gray-500">Aucun article disponible.</p>
+      </div>
+    </ng-template>
+  </div>
+  
+  <!-- Popup Modal for Form -->
+  <div *ngIf="showPopup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative">
+      <button (click)="togglePopup()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
+        <i class="fas fa-times"></i>
+      </button>
+  
+      <!-- Formulaire de création/modification -->
+      <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="p-6">
+        <h2 class="text-2xl font-bold mb-4">{{ articleId ? 'Modifier' : 'Créer' }} l'Article</h2>
+  
+        <div class="mb-4">
+          <label for="title" class="block text-gray-700 font-semibold mb-1">Titre</label>
+          <input
+            id="title"
+            formControlName="title"
+            type="text"
+            class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div *ngIf="articleForm.get('title')?.invalid && articleForm.get('title')?.touched" class="text-red-500 mt-1">
+            Le titre est requis
+          </div>
+        </div>
+  
+        <div class="mb-4">
+          <label for="body" class="block text-gray-700 font-semibold mb-1">Contenu</label>
+          <textarea
+            id="body"
+            formControlName="body"
+            rows="4"
+            class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+          <div *ngIf="articleForm.get('body')?.invalid && articleForm.get('body')?.touched" class="text-red-500 mt-1">
+            Le contenu est requis
+          </div>
+        </div>
+  
+        <button
+          type="submit"
+          [disabled]="articleForm.invalid"
+          class="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {{ articleId ? 'Modifier' : 'Créer' }}
+        </button>
+      </form>
     </div>
   </div>
-  <ng-template #noArticles>
-    <p>Aucun article disponible.</p>
-  </ng-template>
   
