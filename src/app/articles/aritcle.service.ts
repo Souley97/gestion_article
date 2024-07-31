@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Comment } from './show/show.component';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,9 @@ export class ArticleService {
     return this.http.put<any>(`${this.baseUrl}/${id}`, article);
   }
 
+  getCommentsForPost(postId: number): Observable<Comment[]> {
+    const url = `${this.baseUrl}/${postId}/comments`;
+    return this.http.get<Comment[]>(url);
+  }
   // Autres méthodes CRUD (getArticle, createArticle, updateArticle, deleteArticle) peuvent être ajoutées ici
 }
